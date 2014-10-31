@@ -49,14 +49,14 @@ abstract class Node extends Thread {
 	*/
 
 	// Colours, for representing a node's state visually
-	static final Color COLOUR_ASLEEP = Color.yellow;
+	static final Color COLOUR_ASLEEP = Color.white;
 	static final Color COLOUR_AWAKE = Color.green;
 	static final Color COLOUR_CANDIDATE = Color.green;
-	static final Color COLOUR_PASSIVE = Color.black;
-	static final Color COLOUR_FOLLOWER = Color.black; // the center of a follower will be black, like a passive node, but it whill be outlined in red to indicate it has finished
+	static final Color COLOUR_PASSIVE = Color.gray;
+	static final Color COLOUR_FOLLOWER = Color.yellow; // the center of a follower will be black, like a passive node, but it whill be outlined in red to indicate it has finished
 	static final Color COLOUR_LEADER = Color.red;
 	static final Color COLOUR_TERMINATED = Color.red; // used to outline nodes when they have finished
-	static final Color COLOUR_CAPTURED = Color.white;
+	static final Color COLOUR_CAPTURED = Color.blue;
 	
 	static final Color COLOUR_INITIATOR = Color.cyan;
 	static final Color COLOUR_IDLE = Color.yellow;
