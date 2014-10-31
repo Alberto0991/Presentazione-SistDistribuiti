@@ -1,0 +1,43 @@
+ Ring: As Far as it Can (Chang and Roberts)
+ 
+ ASLEEP
+ 
+ spontaneously
+    INITIALIZE
+ 
+ receiving(idReceived)
+    INITIALIZE
+    if (myID < idReceived) then
+       // Do nothing; remain candidate.
+       // Don't need to resend myID.
+       // A node only ever sends its ID once in this algorithm.
+    else if (idReceived < myID) then
+       send(idReceived)
+       become(PASSIVE)
+ 
+ CANDIDATE
+ 
+ receiving(idReceived)
+    if (myID < idReceived) then
+       // do nothing; have already sent myID
+ 
+    else if (idReceived < myID) then
+       send(idReceived)
+       become(PASSIVE)
+ 
+    else /* idReceived = myID */
+       become(LEADER)
+       send(notification)
+ 
+ PASSIVE
+ 
+ receiving(message)
+    send(message)
+    if (message is notification)
+       become(FOLLOWER)
+ 
+ ----------------------------------------------------
+ Procedure INITIALIZE
+    send(myID)
+    become(CANDIDATE)
+ 

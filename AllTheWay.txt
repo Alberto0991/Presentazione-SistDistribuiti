@@ -1,0 +1,44 @@
+ Ring: All The Way
+
+ ASLEEP
+
+ spontaneously
+    INITIALIZE
+    become(awake)
+ 
+ receiving(idReceived, numberOfNodesSeenByMessage)
+    INITIALIZE
+    send(idReceived, numberOfNodesSeenByMessage+1) on opposite link
+    min = Min(min, idReceived)
+    numberOfMessagesSeen++;
+    become(awake)
+ 
+ AWAKE
+ 
+ receiving(idReceived, numberOfNodesSeenByMessage)
+    numberOfMessagesSeen++;
+    if (myID = idReceived) then
+       ringsize = numberOfNodesSeenByMessage
+       known = true
+       CHECK_IF_DONE
+    else
+       send(idReceived, numberOfNodesSeenByMessage + 1) on opposite link
+       min = Min(min, value)
+       if known then CHECK_IF_DONE
+ 
+ ----------------------------------------------------
+ 
+ Procedure INITIALIZE
+    numberOfMessagesSeen = 0
+    known = false
+    send(myID, 1)
+    min = myID
+ 
+ Procedure CHECK_IF_DONE
+    if (numberOfMessagesSeen = ringsize) then
+    begin
+       if (min = myID) then
+          become(LEADER)
+       else
+          become(FOLLOWER)
+    end if

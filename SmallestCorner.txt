@@ -1,0 +1,96 @@
+ Grid: Elect Smallest Corner
+ 
+ ASLEEP
+ spontaneously
+    if (I am a CORNER node) // start ring algorithm (Chang & Roberts)
+       become(CANDIDATE)
+       send(myID) on one of my links
+    else if (I am a BOUNDARY node)
+       become(PASSIVE)
+       send(SEARCH_CORNER) on N(x)  // broadcast
+    else /* I am an internal node */
+       become(PASSIVE)
+    send(SEARCH_BOUNDARY) on N(x)  // broadcast
+
+    receiving(idReceived) on k
+       if (I am a CORNER node) // start ring algorithm (Chang & Roberts)
+          if (myID < idReceived)
+             become(CANDIDATE)
+             send(myID) on one of my links
+          else /* msg < myID */
+             become(PASSIVE)
+             send(idReceived) on N(x) - k // on opposite corner link
+ 
+       else if (I am a BOUNDARY node)
+          become(PASSIVE)
+          send(idReceived) on N(x) – k // broadcast everywhere but k
+ 
+       else /* I am an INTERNAL node. */
+          become(PASSIVE)
+          if (have not already informed this node not to send here)
+             send(“never send here again”) on k
+ 
+    receiving(SEARCH_CORNER) on k
+       if (I am a CORNER node)  // start ring algorithm (Chang & Roberts)
+          become(CANDIDATE)
+          send(myID) on one of my links
+ 
+       else if (I am a BOUNDARY node)
+          become(PASSIVE)
+          send(SEARCH_CORNER) on N(x) – k // keep searching for a corner
+ 
+       else /* I am an INTERNAL node */
+          become(PASSIVE)
+          if (have not already informed this node not to send here)
+             send(“never send here again”) on k
+ 
+    receiving(SEARCH_BOUNDARY) on k
+       if (I am a BOUNDARY node)
+          become(PASSIVE)
+          send(SEARCH_CORNER) on N(x) - k // start searching for a corner
+          neverSendHereAgain = k
+ 
+       else /* I am an INTERNAL node */
+          become(PASSIVE)
+          send(SEARCH_BOUNDARY) on N(x) - k // keep searching for boundary
+ 
+    receiving(“notification”) on k /* I am an INTERNAL node */
+       become(FOLLOWER)
+       send(“notification”) on N(x) – k // broadcast
+ 
+ CANDIDATE /* I am a corner node that has already begun the ring algorithm */
+    receiving(idReceived) on k
+       if (myID < idReceived)
+          // do nothing (stop the message)
+       else if (idReceived < myID)
+          become(PASSIVE)
+          send(idReceived) on N(x) - k // on opposite corner link
+       else /* received myID */
+          become(LEADER)
+          send("notification") on both links
+ 
+    receiving(anything other than an ID)
+       // do nothing; already in last stage of ring algorithm
+ 
+ PASSIVE
+    receiving(idReceived)
+       if (I am a CORNER or BOUNDARY node)
+          send(idReceived) on N(x) – k (- neverSendHereAgain) // forward id
+       else /* I am an internal node */
+          if (have not already informed this node not to send here)
+             send(“never send here again”) on k
+ 
+    receiving(SEARCH_BOUNDARY) on k
+       if (I am a BOUNDARY node)
+          neverSendHereAgain = k
+ 
+    receiving(SEARCH_CORNER)
+       // do nothing; have already send search messages
+ 
+    receiving(“never send here again”)
+       neverSendHereAgain = k
+ 
+    receiving(“notification”)
+       become(FOLLOWER)
+       send(“notification”) on N(x) - k
+ 

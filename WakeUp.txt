@@ -1,0 +1,15 @@
+ General: Wake Up
+ 
+ ASLEEP
+ 
+    spontaneously
+       send(WakeUp) to N(x)
+       become(AWAKE)
+ 
+    receiving(WakeUp) from sender
+       send(WakeUp) to N(x) - sender
+       become(AWAKE)
+ 
+ AWAKE
+ 
+    do nothing
