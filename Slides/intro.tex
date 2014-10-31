@@ -1,0 +1,25 @@
+\begin{frame}{Una soluzione Na{\"i}ve}
+
+Ogni nodo può autonomamente sapere chi è il leader semplicemente ricevendo l'id di tutti i suoi vicini.\\
+%
+\vskip2em
+Numero di messaggi: O$(n^2$)\\
+\vskip2em
+Tempo: $O(1)$\\
+
+
+\end{frame}
+
+\begin{frame}{Protocollo \textit{Complete Elect}}
+
+
+\begin{itemize}
+ \item S = \{ASLEEP, CANDIDATE,PASSIVE, CAPTURED, FOLLOWER, LEADER\};
+ \item S\ped{INIT} = \{ASLEEP\}; S\ped{TERM} = \{FOLLOWER, LEADER\}.
+ \item Restrictions: IR $\cup$ CompleteGraph.
+\end{itemize}
+
+ 
+\end{frame}
+
+ 

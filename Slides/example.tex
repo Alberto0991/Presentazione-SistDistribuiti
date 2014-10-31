@@ -1,0 +1,500 @@
+
+\tikzstyle{nodeStyle}=[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+  thick,
+  asleep_node/.style={circle,fill=white!20,draw,font=\sffamily\Large\bfseries},
+  candidate_node/.style={circle,fill=green!20,draw,font=\sffamily\Large\bfseries},
+  passive_node/.style={circle,fill=gray!20,draw,font=\sffamily\Large\bfseries},
+  captured_node/.style={circle,fill=blue!20,draw,font=\sffamily\Large\bfseries},
+  follower_node/.style={circle,fill=yellow!20,draw,font=\sffamily\Large\bfseries},
+  leader_node/.style={circle,fill=red!50,draw,font=\sffamily\Large\bfseries},]
+
+\section{Un Esempio}
+
+\begin{frame}{Esempio}
+Tutti i nodi sono ALEEP
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+  %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[asleep_node] (3)  [below of=2] {$70$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[asleep_node] (12)  [below of=11] {$17$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[asleep_node] (22)  [below of=21] {$12$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[asleep_node] (30)  [right of=20] {$29$};
+  \node[asleep_node] (31)  [below of=30] {$2$};
+  \node[asleep_node] (32)  [below of=31] {$47$};
+  \node[asleep_node] (33)  [below of=32] {$18$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[asleep_node] (42)  [below of=41] {$71$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+%step 1: 
+\begin{frame}{Esempio}
+70 e 47 spontanemente diventano CANDIDATE
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+  %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[candidate_node] (3)  [below of=2] {$70^1$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[asleep_node] (12)  [below of=11] {$17$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[asleep_node] (22)  [below of=21] {$12$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[asleep_node] (30)  [right of=20] {$29$};
+  \node[asleep_node] (31)  [below of=30] {$2$};
+  \node[candidate_node] (32)  [below of=31] {$47^1$};
+  \node[asleep_node] (33)  [below of=32] {$18$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[asleep_node] (42)  [below of=41] {$71$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Esempio}
+70 e 47 sfidano rispettivamente 12 e 17
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+%prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[candidate_node] (3)  [below of=2] {$70^2$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[captured_node] (22)  [below of=21] {$12_{70}^2$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[asleep_node] (30)  [right of=20] {$29$};
+  \node[asleep_node] (31)  [below of=30] {$2$};
+  \node[candidate_node] (32)  [below of=31] {$47^2$};
+  \node[asleep_node] (33)  [below of=32] {$18$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[asleep_node] (42)  [below of=41] {$71$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+
+\begin{frame}{Esempio}
+2 si sveglia spontanemente
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[candidate_node] (3)  [below of=2] {$70^2$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[captured_node] (22)  [below of=21] {$12_{70}^2$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[asleep_node] (30)  [right of=20] {$29$};
+  \node[candidate_node] (31)  [below of=30] {$2^1$};
+  \node[candidate_node] (32)  [below of=31] {$47^2$};
+  \node[asleep_node] (33)  [below of=32] {$18$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[asleep_node] (42)  [below of=41] {$71$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+
+\begin{frame}{Esempio}
+2 sfida 29 e 70 sfida 2 (la sfida di 70 arriva prima)
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[candidate_node] (3)  [below of=2] {$70^3$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[captured_node] (22)  [below of=21] {$12_{70}^2$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[captured_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[captured_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[candidate_node] (32)  [below of=31] {$47^2$};
+  \node[asleep_node] (33)  [below of=32] {$18$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[asleep_node] (42)  [below of=41] {$71$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+
+\begin{frame}{Esempio}
+47 sfida 2
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[candidate_node] (3)  [below of=2] {$70^3$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[captured_node] (22)  [below of=21] {$12_{70}^2$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[captured_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[captured_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[passive_node] (32)  [below of=31] {$47^2$};
+  \node[asleep_node] (33)  [below of=32] {$18$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[asleep_node] (42)  [below of=41] {$71$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Esempio}
+18 spontanemente si sveglia e cattura 71
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[candidate_node] (3)  [below of=2] {$70^3$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[captured_node] (22)  [below of=21] {$12_{70}^2$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[captured_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[captured_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[passive_node] (32)  [below of=31] {$47^2$};
+  \node[candidate_node] (33)  [below of=32] {$18^2$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[captured_node] (42)  [below of=41] {$71^2_{18}$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Esempio}
+18 sfida 47
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[candidate_node] (3)  [below of=2] {$70^3$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[captured_node] (22)  [below of=21] {$12_{70}^2$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[captured_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[captured_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[captured_node] (32)  [below of=31] {$47^3_{18}$};
+  \node[candidate_node] (33)  [below of=32] {$18^3$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[captured_node] (42)  [below of=41] {$71^2_{18}$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Esempio}
+18 sfida 12
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[asleep_node] (2)  [below of=1] {$5$};
+  \node[passive_node] (3)  [below of=2] {$70^3$};
+  \node[asleep_node] (4)  [below of=3] {$9$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[asleep_node] (13)  [below of=12] {$19$};
+  
+  %terza colonna
+  \node[asleep_node] (20)  [right of=10]  {$4$};
+  \node[asleep_node] (21)  [below of=20] {$1$};
+  \node[captured_node] (22)  [below of=21] {$12_{18}^4$};
+  \node[asleep_node] (23)  [below of=22] {$20$};
+  
+  %quarta colonna
+  \node[captured_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[captured_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[captured_node] (32)  [below of=31] {$47^3_{18}$};
+  \node[candidate_node] (33)  [below of=32] {$18^4$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[captured_node] (42)  [below of=41] {$71^2_{18}$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Esempio}
+18 continua a sfidare altri suoi vicini indisturbato...
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[captured_node] (2)  [below of=1] {$5^8_{18}$};
+  \node[passive_node] (3)  [below of=2] {$70^3$};
+  \node[captured_node] (4)  [below of=3] {$9^6_{18}$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[asleep_node] (11)  [below of=10] {$15$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[captured_node] (13)  [below of=12] {$19^7_{18}$};
+  
+  %terza colonna
+  \node[captured_node] (20)  [right of=10]  {$4^9_{18}$};
+  \node[captured_node] (21)  [below of=20] {$1^{10}_{18}$};
+  \node[captured_node] (22)  [below of=21] {$12_{18}^4$};
+  \node[captured_node] (23)  [below of=22] {$20^5_{18}$};
+  
+  %quarta colonna
+  \node[captured_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[captured_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[captured_node] (32)  [below of=31] {$47^3_{18}$};
+  \node[candidate_node] (33)  [below of=32] {$18^{10}$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[captured_node] (42)  [below of=41] {$71^2_{18}$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Esempio}
+18 sfida 15
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[asleep_node] (1)  {$10$};
+  \node[captured_node] (2)  [below of=1] {$5^8_{18}$};
+  \node[passive_node] (3)  [below of=2] {$70^3$};
+  \node[captured_node] (4)  [below of=3] {$9^6_{18}$};
+
+  
+  %seconda colonna
+  \node[asleep_node] (10)  [right of=1] {$23$};
+  \node[captured_node] (11)  [below of=10] {$15_{18}^{11}$};
+  \node[captured_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[captured_node] (13)  [below of=12] {$19^7_{18}$};
+  
+  %terza colonna
+  \node[captured_node] (20)  [right of=10]  {$4^9_{18}$};
+  \node[captured_node] (21)  [below of=20] {$1^{10}_{18}$};
+  \node[captured_node] (22)  [below of=21] {$12_{18}^4$};
+  \node[captured_node] (23)  [below of=22] {$20^5_{18}$};
+  
+  %quarta colonna
+  \node[captured_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[captured_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[captured_node] (32)  [below of=31] {$47^3_{18}$};
+  \node[leader_node] (33)  [below of=32] {$18^{11}$};
+  
+  %quinta colonna
+  \node[asleep_node] (40)  [right of=30] {$33$};
+  \node[asleep_node] (41)  [below of=40] {$46$};
+  \node[captured_node] (42)  [below of=41] {$71^2_{18}$};
+  \node[asleep_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Esempio}
+18 informa la rete di essere il leader
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+ %prima colonna
+  \node[follower_node] (1)  {$10$};
+  \node[follower_node] (2)  [below of=1] {$5^8_{18}$};
+  \node[follower_node] (3)  [below of=2] {$70^3$};
+  \node[follower_node] (4)  [below of=3] {$9^6_{18}$};
+
+  
+  %seconda colonna
+  \node[follower_node] (10)  [right of=1] {$23$};
+  \node[follower_node] (11)  [below of=10] {$15_{18}^{11}$};
+  \node[follower_node] (12)  [below of=11] {$17_{47}^2$};
+  \node[follower_node] (13)  [below of=12] {$19^7_{18}$};
+  
+  %terza colonna
+  \node[follower_node] (20)  [right of=10]  {$4^9_{18}$};
+  \node[follower_node] (21)  [below of=20] {$1^{10}_{18}$};
+  \node[follower_node] (22)  [below of=21] {$12_{18}^4$};
+  \node[follower_node] (23)  [below of=22] {$20^5_{18}$};
+  
+  %quarta colonna
+  \node[follower_node] (30)  [right of=20] {$29^2_{2}$};
+  \node[follower_node] (31)  [below of=30] {$2^3_{70}$};
+  \node[follower_node] (32)  [below of=31] {$47^3_{18}$};
+  \node[leader_node] (33)  [below of=32] {$18^{11}$};
+  
+  %quinta colonna
+  \node[follower_node] (40)  [right of=30] {$33$};
+  \node[follower_node] (41)  [below of=40] {$46$};
+  \node[follower_node] (42)  [below of=41] {$71^2_{18}$};
+  \node[follower_node] (43)  [below of=42] {$56$};
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+
+
+
+

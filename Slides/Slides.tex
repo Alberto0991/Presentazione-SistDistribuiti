@@ -1,0 +1,111 @@
+\documentclass[xcolor=dvipsnames,10pt]{beamer}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\setlength\PreviewBorder{5pt}%
+
+\mode<presentation>
+
+\usepackage{beamerthemesplit}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  keepspaces=true,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\tiny\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  moredelim=[is][\textcolor{gray}]{&&}{&&},
+  literate={A}{A}{1\discretionary{}{}{}}
+             {B}{B}{1\discretionary{}{}{}}
+             {C}{C}{1\discretionary{}{}{}}
+             {D}{D}{1\discretionary{}{}{}}
+             {E}{E}{1\discretionary{}{}{}}
+             {F}{F}{1\discretionary{}{}{}}
+             {G}{G}{1\discretionary{}{}{}}
+             {H}{H}{1\discretionary{}{}{}}
+             {I}{I}{1\discretionary{}{}{}}
+             {J}{J}{1\discretionary{}{}{}}
+             {K}{K}{1\discretionary{}{}{}}
+             {L}{L}{1\discretionary{}{}{}}
+             {M}{M}{1\discretionary{}{}{}}
+             {N}{N}{1\discretionary{}{}{}}
+             {O}{O}{1\discretionary{}{}{}}
+             {P}{P}{1\discretionary{}{}{}}
+             {Q}{Q}{1\discretionary{}{}{}}
+             {R}{R}{1\discretionary{}{}{}}
+             {S}{S}{1\discretionary{}{}{}}
+             {T}{T}{1\discretionary{}{}{}}
+             {U}{U}{1\discretionary{}{}{}}
+             {V}{V}{1\discretionary{}{}{}}
+             {W}{W}{1\discretionary{}{}{}}
+             {X}{X}{1\discretionary{}{}{}}
+             {Y}{Y}{1\discretionary{}{}{}}
+             {Z}{Z}{1\discretionary{}{}{}}
+}
+
+\graphicspath{ {./images/} }
+
+\usecolortheme[named=MidnightBlue]{structure}
+
+%Warsaw Dresden Singapore Copenhagen Madrid AnnArbor
+\usetheme{Warsaw}
+\setbeamercovered{transparent}
+\setbeamercolor{lowercolor}{fg=white , bg=MidnightBlue}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{items}[default]
+\setbeamertemplate{navigation symbols}{}
+
+\def\hilite<#1>{%
+\temporal<#1>{\color{lightgray}}{\color{black}}%
+{\color{black}}}
+
+\usetitlepagetemplate{
+  \begin{center}
+
+    \begin{beamerboxesrounded}[lower=lowercolor, shadow=true]{}
+     \begin{center}
+    \normalsize{Elezione in un grafo completo}
+     \end{center}
+    \end{beamerboxesrounded}
+
+  \end{center}
+}
+
+\title[Elezione in un grafo completo]{}
+\author{Alberto Guida, Giulio Galvan}
+
+\date{\today}
+
+\newcommand*\oldmacro{}%
+\let\oldmacro\insertshorttitle%
+\renewcommand*\insertshorttitle{%
+  \oldmacro\hfill%
+  \insertframenumber\,/\,\inserttotalframenumber}
+
+\begin{document}
+
+\frame{\titlepage}
+\input{intro}
+\input{example}
+
+\end{document} 
