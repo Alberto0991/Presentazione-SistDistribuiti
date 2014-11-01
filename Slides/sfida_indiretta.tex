@@ -1,0 +1,106 @@
+\tikzstyle{nodeStyle}=[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+  thick,
+  asleep_node/.style={circle,fill=white!20,draw,font=\sffamily\Large\bfseries},
+  candidate_node/.style={circle,fill=green!20,draw,font=\sffamily\Large\bfseries},
+  passive_node/.style={circle,fill=gray!20,draw,font=\sffamily\Large\bfseries},
+  captured_node/.style={circle,fill=blue!20,draw,font=\sffamily\Large\bfseries},
+  follower_node/.style={circle,fill=yellow!20,draw,font=\sffamily\Large\bfseries},
+  leader_node/.style={circle,fill=red!50,draw,font=\sffamily\Large\bfseries},]
+
+\begin{frame}{Il problema della sfida indiretta}
+Supponiamo di essere in questa configurazione
+
+
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+  \node[captured_node] (1)  {$43_{5}^2$};
+  \node[candidate_node] (2)  [above right of=1] {$5^2$};
+  \node[captured_node] (3)  [below right of=2] {$71_{6}^2$};
+  \node[candidate_node] (4)  [above right of=3] {$6^2$};
+  
+  \node[candidate_node] (5)  [below of=1] {$4^2$};
+  \node[candidate_node] (6)  [right of=5] {$3^2$};
+  \node[captured_node] (7)  [below left of=5] {$13_{4}^2$};
+  \node[captured_node] (8)  [right of=7] {$15_{3}^2$};
+
+  
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Il problema della sfida indiretta}
+ 4 sfida 43 e prima che 5 abbia risposto arriva anche la richiesta di sfida da parte di 3
+
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+  \node[captured_node] (1)  {$43_{3}^3$};
+  \node[passive_node] (2)  [above right of=1] {$5^2$};
+  \node[captured_node] (3)  [below right of=2] {$71_{6}^2$};
+  \node[candidate_node] (4)  [above right of=3] {$6^2$};
+  
+  \node[candidate_node] (5)  [below of=1] {$4^3$};
+  \node[candidate_node] (6)  [right of=5] {$3^3$};
+  \node[captured_node] (7)  [below left of=5] {$13_{4}^2$};
+  \node[captured_node] (8)  [right of=7] {$15_{3}^2$};
+
+  
+
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Il problema della sfida indiretta}
+ 4 sfida 71 e prima che 6 abbia risposto arriva anche la richiesta di sfida da parte di 3
+
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+  \node[captured_node] (1)  {$43_{3}^3$};
+  \node[passive_node] (2)  [above right of=1] {$5^2$};
+  \node[captured_node] (3)  [below right of=2] {$71_{3}^3$};
+  \node[passive_node] (4)  [above right of=3] {$6^2$};
+  
+  \node[candidate_node] (5)  [below of=1] {$4^4$};
+  \node[candidate_node] (6)  [right of=5] {$3^4$};
+  \node[captured_node] (7)  [below left of=5] {$13_{4}^2$};
+  \node[captured_node] (8)  [right of=7] {$15_{3}^2$};
+
+  
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+
+\begin{frame}{Il problema della sfida indiretta}
+4 sfida 5 e 3 sfida 6
+\begin{center}
+\begin{tikzpicture}[nodeStyle]
+
+
+
+  \node[captured_node] (1)  {$43_{3}^3$};
+  \node[candidate_node] (2)  [above right of=1] {$5_{4}^5$};
+  \node[captured_node] (3)  [below right of=2] {$71_{3}^3$};
+  \node[candidate_node] (4)  [above right of=3] {$6^4_{71}$};
+  
+  \node[leader_node] (5)  [below of=1] {$4^5$};
+  \node[leader_node] (6)  [right of=5] {$3^5$};
+  \node[captured_node] (7)  [below left of=5] {$13_{4}^2$};
+  \node[captured_node] (8)  [right of=7] {$15_{3}^2$};
+
+  
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Il problema della sfida indiretta}
+ Questo problema può essere risolto inserendo in coda i messaggi che arrivano nei nodi catturati che hanno inoltrato un messaggio di sfida al proprio owner e che ancora non hanno ricevuto risposta.
+ Questo garantisce che i 'territori' di due candidati non si sovrappongano.
+ 
+\end{frame}

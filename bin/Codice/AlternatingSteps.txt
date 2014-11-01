@@ -1,0 +1,21 @@
+ Ring: Alternating Steps (Peterson, FIFO version)
+ 
+ ASLEEP
+ 
+ send(myID) to the right
+ become(candidate)
+ 
+ CANDIDATE
+ 
+ receiving(id) from left (right)
+    if (id < myID) then
+       become(passive)
+    else if (id > myID) then
+       send(myID) to the left (right) /* same direction message arrived */
+    else /* I received my own ID */
+       become(leader)
+ 
+ PASSIVE /* forward all messages on the opposite link */
+ 
+ receiving(message) from the right (left)
+    send(message) to the left(right)

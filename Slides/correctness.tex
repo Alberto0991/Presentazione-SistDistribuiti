@@ -1,0 +1,22 @@
+\begin{frame}{Correttezza}
+
+Il criterio di terminazione è corretto infatti:
+
+\begin{itemize}
+\setlength\itemsep{2em}
+ \item I territori associati a due o più nodi \textit{CANDIDATE} non possono sovvrapporsi.
+ \item Se un candiato raggiunge lo stage $\lfloor\frac{n}{2}\rfloor+1$ non esistente un'altro candidato nella rete con stage maggiore.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Correttezza}
+ Rimane da verificare che almeno un candidato raggiunga lo stage $\lfloor\frac{n}{2}\rfloor+1$. 
+
+ Supponiamo per assurdo che nessun nodo raggiunga lo stage $\lfloor\frac{n}{2}\rfloor+1$.  Questo implica che tutti i candidati siano stati catturati (da altri candiati) o siano diventati passivi.
+ Questo non è possibile perchè in ogni sfida, diretta o indiretta, viene sconfitto uno solo dei due candidati.
+ 
+ 
+  
+\end{frame}
+

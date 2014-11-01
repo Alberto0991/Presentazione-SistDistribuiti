@@ -1,0 +1,55 @@
+Arbitrary : Shout
+
+Assumptions: single initiator, FIFO queue
+
+Status: S = {INITIATOR, ASLEEP, AWAKE, DONE};
+S_init =  {INITIATOR, ASLEEP};
+s_term = {DONE};
+
+INITIATOR
+	Spontaneously
+	begin
+		root := true;
+		Tree-Neighbors := Ø
+		send(Q) to N(x)
+		counter := 0
+		become AWAKE;
+	end
+	
+ASLEEP
+	Receiving(Q)
+	begin
+		root := false;
+		parent := sender;
+		Tree-neighbors := {sender};
+		send(Yes) to {sender};
+		counter := 1;
+		if counter = |N(x)| then
+			become DONE;
+		else
+			send(Q) to N(x) - {sender};
+			become AWAKE;
+		endif
+
+AWAKE
+	Receiving(Q)
+	begin
+		send(No) to {sender}
+	end
+	
+	Receiving(Yes)
+	begin
+		Tree-neighbors := Tree-neighbors U{sender};
+		counter := counter + 1;
+		if counter = |N(x)| then
+			become DONE;
+		endif
+	end
+	
+	receiving(No)
+	begin
+		counter := counter + 1;
+		if counter = |N(x)| then
+			become DONE;
+		endif
+	end

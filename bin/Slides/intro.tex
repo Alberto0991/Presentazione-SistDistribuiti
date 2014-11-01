@@ -1,0 +1,109 @@
+\section{Introduzione}
+\begin{frame}{Una soluzione Na{\"i}ve}
+
+
+\begin{itemize}
+ \item Ogni nodo può autonomamente sapere chi è il leader semplicemente ricevendo l'id di tutti i suoi vicini.
+ \vskip2em
+ \item Numero di messaggi: O$(n^2$)
+ \vskip2em
+ \item Tempo: $O(1)$
+\end{itemize}
+
+
+\end{frame}
+
+\section{Complete Elect}
+\begin{frame}{Stati}
+
+
+\begin{itemize}
+ \item S = \{\textit{ASLEEP}, \textit{CANDIDATE},\textit{PASSIVE}, \textit{CAPTURED}, \textit{FOLLOWER}, \textit{LEADER}\};
+ \vskip2em
+ \item \textit{S\ped{INIT}} = \{\textit{ASLEEP}\}; \textit{S\ped{TERM}} = \{\textit{FOLLOWER}, \textit{LEADER}\}.
+ \vskip2em
+ \item Restrictions: IR $\cup$ CompleteGraph.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Stato interno}
+ Lo stato interno di un nodo è descritto da:
+ \vskip2em
+ \begin{itemize}
+  \item id
+  \vskip2em
+  \item stage: il numero dello stato elettorale(numero di nodi catturati)
+ \end{itemize}
+ 
+ \vskip3em
+ NOTA : stage assume significati differenti a secoda dello stato
+
+\end{frame}
+
+\begin{frame}{Protocollo}
+ \begin{itemize}
+  \item Inizialmente tutti i nodi sono \textit{ASLEEP}; spontaneamente un nodo \textit{ASLEEP} può diventare \textit{CANDIDATE}.
+  \vskip2em
+  \item Un nodo \textit{CANDIDATE} prova a catturare, uno dopo l'altro tutti i suoi vicini. Se il nodo riesce a catturare un suo vicino aumenta il suo stage altrimenti diventa \textit{PASSIVE}
+  e termina la fase di espansione.
+  \vskip2em
+  \item Quando un nodo \textit{CANDIDATE} raggiunge lo stage $\lfloor\frac{n}{2}\rfloor+1$ diventa \textit{LEADER} e lo comunica a tutti i suoi vicini che diventano \textit{FOLLOWER}.
+ \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Cattura}
+Il nodo x manda una messaggio di cattura ad y
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+   thin,
+   test/.style={rectangle,fill=white!20,draw,font=\sffamily\tiny\normalfont},
+   leaf/.style={rectangle,fill=white!20,draw,font=\sffamily\tiny\normalfont},
+   every edge/.style={font=\sffamily\tiny\normalfont},
+    level 1/.style={sibling distance=2cm},
+    level 2/.style={sibling distance=2cm},
+ ]
+ 
+\tiny{
+
+  \node[test] (1) {In che stato è y?}
+    
+   
+    child{node[test]{$stage(x)<stage(y)?$} 
+	  child{node[leaf]{Success} edge from parent node[right]{Yes} }
+	  child{node[test]{$id(x)<id(y)$}  
+	    child{node[leaf]{Success} edge from parent node[right]{Yes} }
+	    child{node[leaf]{Failure} edge from parent node[right]{No}} edge from parent node[right]{No}}
+	    edge from parent node[left]{Candidate}
+ 	    }
+    child{ node[leaf]{Success} edge from parent node[left]{Asleep} }
+    child{node[leaf]{Success} edge from parent node[left]{Passive} }
+    child{node[test]{$stage(y)<stage(x)?$} 
+	child{ node[leaf]{Failure} edge from parent node[right]{No} }
+	child{node[test]{$stage(owner(y)<stage(x)?$} 
+	    child{node[leaf]{Success} edge from parent node[left]{Yes}}
+ 	    child{node[test]{$id(owner(y)<id(x))?$} 
+ 	      child{node[leaf]{Success} edge from parent node[right]{No}}
+ 	      child{node[leaf]{Failure} edge from parent node[right]{No}}	    
+ 	    edge from parent node[right]{No}}
+	  edge from parent node[right]{Yes}}
+          edge from parent node[right]{Captured}
+	  }
+
+    ;
+}
+
+\end{tikzpicture}
+\end{center} 
+\end{frame}
+
+
+
+
+
+
+
+
+ 

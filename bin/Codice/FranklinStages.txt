@@ -1,0 +1,23 @@
+ Ring: Franklin Stages (FIFO version)
+ 
+ ASLEEP
+ 
+ send(myID) left and right
+ become(candidate)
+ 
+ CANDIDATE
+ 
+ receiving(idleft, idright) from neighbours
+    if (idLeft = myID or idRight = myID) then
+      send(notification) to the left
+      become(leader)
+    if (idleft < myID or idRight < myID) then
+      become(passive)
+    else /* I am still the smallest value seen; remain candidate */
+      send(myID) left and right
+ 
+ PASSIVE
+ 
+ receiving(message) from the right (left)
+    send(message) to the left (right)
+ 
