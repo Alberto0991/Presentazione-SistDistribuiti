@@ -49,7 +49,7 @@
 \begin{frame}{Protocollo}
  \begin{itemize}
  \setlength\itemsep{2em}
-  \item Inizialmente tutti i nodi sono \textit{ASLEEP}; spontaneamente un nodo \textit{ASLEEP} può diventare \textit{CANDIDATE}.
+  \item Inizialmente tutti i nodi sono \textit{ASLEEP}; spontaneamente un nodo \textit{ASLEEP} diventa \textit{CANDIDATE}.
   \item Un nodo \textit{CANDIDATE} prova a catturare, uno dopo l'altro tutti i suoi vicini. Se il nodo riesce a catturare un suo vicino aumenta il suo stage altrimenti diventa \textit{PASSIVE}
   e termina la fase di espansione.
   \item Quando un nodo \textit{CANDIDATE} raggiunge lo stage $\lfloor\frac{n}{2}\rfloor+1$ diventa \textit{LEADER} e lo comunica a tutti i suoi vicini che diventano \textit{FOLLOWER}.
@@ -68,7 +68,8 @@ Il nodo x manda una messaggio di cattura ad y
    leaf/.style={rectangle,fill=white!20,draw,font=\sffamily\tiny\normalfont},
    every edge/.style={font=\sffamily\tiny\normalfont},
     level 1/.style={sibling distance=2cm},
-    level 2/.style={sibling distance=2cm},
+    level 2/.style={sibling distance=2.4cm},
+    level 3/.style={sibling distance=3cm},
  ]
  
 \tiny{
@@ -78,7 +79,7 @@ Il nodo x manda una messaggio di cattura ad y
    
     child{node[test]{$stage(x)<stage(y)?$} 
 	  child{node[leaf]{Success} edge from parent node[right]{Yes} }
-	  child{node[test]{$id(x)<id(y)$}  
+	  child{node[test]{$stage(x)=stage(y)\wedge id(x)<id(y)?$}  
 	    child{node[leaf]{Success} edge from parent node[right]{Yes} }
 	    child{node[leaf]{Failure} edge from parent node[right]{No}} edge from parent node[right]{No}}
 	    edge from parent node[left]{Candidate}
@@ -87,12 +88,12 @@ Il nodo x manda una messaggio di cattura ad y
     child{node[leaf]{Success} edge from parent node[left]{Passive} }
     child{node[test]{$stage(y)<stage(x)?$} 
 	child{ node[leaf]{Failure} edge from parent node[right]{No} }
-	child{node[test]{$stage(owner(y)<stage(x)?$} 
-	    child{node[leaf]{Success} edge from parent node[left]{Yes}}
- 	    child{node[test]{$id(owner(y)<id(x))?$} 
- 	      child{node[leaf]{Success} edge from parent node[right]{No}}
- 	      child{node[leaf]{Failure} edge from parent node[right]{No}}	    
- 	    edge from parent node[right]{No}}
+	child{node[test]{$stage(owner(y))<stage(x)?$} 
+	      child{node[test]{$stage(owner(y))=stage(x) \wedge id(owner(y))>id(x)?$} 
+		child{node[leaf]{Success} edge from parent node[right]{Yes}}
+		child{node[leaf]{Failure} edge from parent node[right]{No}}	    
+		edge from parent node[right]{No}}
+ 	    child{node[leaf]{Success} edge from parent node[left]{Yes}}
 	  edge from parent node[right]{Yes}}
           edge from parent node[right]{Captured}
 	  }
