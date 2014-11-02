@@ -1,0 +1,76 @@
+\section{Complessità}
+
+\begin{frame} {Numero di Messaggi}
+
+\begin{itemize}
+\setlength\itemsep{1.5em}
+
+\item Sia $n_i$ il numero di canditati che raggiungono stage$=i$;
+\item Ogni candidato ha un territorio di dimensione $i$ e tutti i territori sono disgiunti, quindi non ci possono essere più di $n_i\leq n/i$ candidati;
+\item Ogni candidato potrà inviare una richiesta di sfida che potrà costare al massimo 4 messaggi.
+
+\vskip2em
+$\Rightarrow$ il massimo numero di messaggi generati dai candidati con stage $i$ è $4n/i$.
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame} {Numero di Step}
+
+Quanti passi servono per la terminazione?
+\vskip2em
+\begin{itemize}
+\item Se un candidato conquista un territorio di dimensione $n/2 + 1$ allora nessun altro candidato può diventare \textit{leader};
+\item Un candidato che raggiunge stage$=n/2 + 1$ diventa quindi \textit{leader} e potrà inviare un messaggio di terminazione in broadcast a tutti gli altri nodi.
+\end{itemize}
+\end{frame}
+
+\begin{frame} {Costo complessivo(Messaggi-Tempo)}
+
+Il numero totale di messaggi includendo la notifica è:
+\vskip0.5em
+$n-1+\sum_{i=1}^{n/2} 4n_i \leq n-1+4n\sum_{i=1}^{n/2} 1/i = 4nH_{n/2}+n-1 $
+
+\vskip1.5em
+Ricordando che $log(1+n)\leq H_n \leq 1+logn$ si ha che:
+
+\vskip0.5em
+$M[CompleteElect] \leq 4n(1+logn/2)+n-1 = 4n+4nlogn-4nlog2+n-1 = 4nlogn+2.22n-1$
+
+\vskip1.5em
+Non è difficile vedere che il tempo ideale del protocollo nel caso peggiore è lineare, ovvero:
+\vskip0.5em
+$T[CompleteElect]=O(n)$
+\end{frame}
+
+\begin{frame}{Fusione di strategie}
+
+Combinando in maniera appropriata la strategia appena descritta con quella Na{\"i}ve si può costruire un protocollo che offre:
+\vskip2em
+\begin{itemize} \setlength\itemsep{1.5em}
+\item costo ottimale in termini di messaggi : $O(nlogn)$
+\item Tempo : $O(n/logn)$ 
+\end{itemize}
+ 
+\end{frame}
+
+\begin{frame}{Compromesso Tempo - \#Messaggi}
+
+Idea : il tempo può essere ridotto espandendo il numero di messaggi. In fatti è possibile implementare un protocollo che, $\forall k$ con $logn\leq k \leq n$, risolve il problema dell'elezione utilizzando $O(nk)$ messaggi e un tempo dell'ordine di $O(n/k)$ nel caso peggiore.
+\begin{itemize}
+\item $k=logn \Rightarrow$ strategia Combinata (numero messaggi ottimali): 
+\begin{itemize}
+\item numero di messaggi : $O(nlogn)$
+\item tempo : $O(n/logn)$
+\end{itemize} 
+
+\item $k=n \Rightarrow$ strategia Na{\"i}ve (tempo ottimale): 
+\begin{itemize}
+\item numero di messaggi : $O(n^2)$
+\item tempo : $O(1)$
+\end{itemize} 
+
+\end{itemize} 
+
+\end{frame}
