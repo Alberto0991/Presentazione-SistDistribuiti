@@ -1,0 +1,30 @@
+\section{Limitazioni}
+
+\begin{frame}{Confronto con l'anello}
+
+Si può osservare come il costo ottimale in termini di messaggi della strategia combinata, pari a $O(nlogn)$, è lo stesso ottenuto nel problema dell'elezione in un anello (anzi, attualmente la costante moltiplicativa è peggiore).
+
+\vskip2em
+A differenza dell'anello, nella rete completa, ogni entità ha un collegamento diretto con tutte le altre entità per un totale di $n^2$ link. Sfruttando tutto questo hardware di comunicazione, dovremmo essere in grado di fare meglio dell'anello, dove ci sono solo n collegamenti e le entità possono essere distanti al massimo n.
+
+\end{frame}
+
+\begin{frame}{Limitazione della rete completa}
+
+Sorprendentemente, nonostante ogni entità è direttamente collegata con tutte le altre, per l'elezione non si possono ottenere risultati migliori dell'anello.
+$\Rightarrow$ ogni protocollo di elezione richiederà nel caso peggiore $O(nlogn)$ messaggi. 
+
+
+\end{frame}
+
+\begin{frame}{Limitazione della rete completa}
+
+$M(Elect/IR) = \Omega(nlogn)$ \vskip2em
+
+Idea : ogni protocollo di elezione risolve anche il problema del \textit{wake-up}.%per essere essere sconfitta o per diventare leader ogni entità devo essere attivata.
+\\
+\textit{Wake-up} richiede come minimo $5nlogn$ messaggi, quindi ogni protocollo di elezione richiede nel caso peggiore lo stesso numero di messaggi.\\
+\vskip0.5em
+$\Rightarrow$ le spese causate dalla costruzione fisica delle rete non giustificano le performance, ottenibili con una rete meno costosa come l'anello.
+
+\end{frame}
