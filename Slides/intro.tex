@@ -22,7 +22,7 @@
 \begin{itemize}
 \setlength\itemsep{2em}
 
- \item S = \{\textit{ASLEEP}, \textit{CANDIDATE},\textit{PASSIVE}, \textit{CAPTURED}, \textit{FOLLOWER}, \textit{LEADER}\};
+ \item S = \{\textit{ASLEEP}, \textit{CANDIDATE}, \textit{PASSIVE}, \textit{CAPTURED}, \textit{FOLLOWER}, \textit{LEADER}\};
 %  \vskip2em
  \item \textit{S\ped{INIT}} = \{\textit{ASLEEP}\}; \textit{S\ped{TERM}} = \{\textit{FOLLOWER}, \textit{LEADER}\}.
 %  \vskip2em
@@ -68,7 +68,7 @@ Il nodo x manda una messaggio di cattura ad y
    leaf/.style={rectangle,fill=white!20,draw,font=\sffamily\tiny\normalfont},
    every edge/.style={font=\sffamily\tiny\normalfont},
     level 1/.style={sibling distance=2cm},
-    level 2/.style={sibling distance=2.4cm},
+    level 2/.style={sibling distance=3cm},
     level 3/.style={sibling distance=3cm},
  ]
  
@@ -77,18 +77,18 @@ Il nodo x manda una messaggio di cattura ad y
   \node[test] (1) {In che stato è y?}
     
    
-    child{node[test]{$stage(x)<stage(y)?$} 
-	  child{node[leaf]{Success} edge from parent node[right]{Yes} }
+    child{node[test]{$stage(x)>stage(y)?$} 
 	  child{node[test]{$stage(x)=stage(y)\wedge id(x)<id(y)?$}  
 	    child{node[leaf]{Success} edge from parent node[right]{Yes} }
 	    child{node[leaf]{Failure} edge from parent node[right]{No}} edge from parent node[right]{No}}
-	    edge from parent node[left]{Candidate}
+	    child{node[leaf]{Success} edge from parent node[right]{Yes} }
+	    edge from parent node[left]{Candidate o Passive}
  	    }
     child{ node[leaf]{Success} edge from parent node[left]{Asleep} }
-    child{node[leaf]{Success} edge from parent node[left]{Passive} }
-    child{node[test]{$stage(y)<stage(x)?$} 
+%     child{node[leaf]{Success} edge from parent node[left]{Passive} }
+    child{node[test]{$owner\_stage(y)<stage(x)?$} 
 	child{ node[leaf]{Failure} edge from parent node[right]{No} }
-	child{node[test]{$stage(owner(y))<stage(x)?$} 
+	child{node[test]{$stage(owner(y))< stage(x)?$} 
 	      child{node[test]{$stage(owner(y))=stage(x) \wedge id(owner(y))>id(x)?$} 
 		child{node[leaf]{Success} edge from parent node[right]{Yes}}
 		child{node[leaf]{Failure} edge from parent node[right]{No}}	    

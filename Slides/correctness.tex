@@ -14,7 +14,12 @@ Il criterio di terminazione è corretto infatti:
  Rimane da verificare che almeno un candidato raggiunga lo stage $\lfloor\frac{n}{2}\rfloor+1$. 
 
  Supponiamo per assurdo che nessun nodo raggiunga lo stage $\lfloor\frac{n}{2}\rfloor+1$.  Questo implica che tutti i candidati siano stati catturati (da altri candidati) o siano diventati passivi.
- Questo non è possibile perchè in ogni sfida, diretta o indiretta, viene sconfitto uno solo dei due candidati.
+ Questo non è possibile perchè:
+ \begin{itemize}
+  \item quando un candidato sfida un'altro candidato direttamente o indirettamente uno solo dei due 'muore'.
+  \item se un candidato sfida un nodo passivo e il nodo passivo 'vince' allora esiste un'altro candidato con stage maggiore o uguale al suo. 
+ \end{itemize}
+
  
  
   

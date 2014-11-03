@@ -12,14 +12,17 @@ A differenza dell'anello, nella rete completa, ogni entità ha un collegamento d
 \begin{frame}{Limitazione della rete completa}
 
 Sorprendentemente, nonostante ogni entità è direttamente collegata con tutte le altre, per l'elezione non si possono ottenere risultati migliori dell'anello.
-$\Rightarrow$ ogni protocollo di elezione richiederà nel caso peggiore $O(nlogn)$ messaggi. 
+Infatti ogni protocollo di elezione richiede nel caso peggiore $O(nlogn)$ messaggi. 
 
 
 \end{frame}
 
 \begin{frame}{Limitazione della rete completa}
 
-$M(Elect/IR) = \Omega(nlogn)$ \vskip2em
+\textbf{Proprietà} $M(Elect/IR) = \Omega(nlogn)$ \vskip2em
+
+%I= iniziatore non unico
+%R = total reliability, bidirectional links, connectivity
 
 Idea : ogni protocollo di elezione risolve anche il problema del \textit{wake-up}.%per essere essere sconfitta o per diventare leader ogni entità devo essere attivata.
 \\
