@@ -1,11 +1,13 @@
+\subsection{Correttezza e Complessità}
+
 \begin{frame}{Correttezza}
 
 Il criterio di terminazione è corretto infatti:
 
 \begin{itemize}
 \setlength\itemsep{2em}
- \item I territori associati a due o più nodi \textit{CANDIDATE} non possono sovvrapporsi.
- \item Se un candiato raggiunge lo stage $\lfloor\frac{n}{2}\rfloor+1$ non esiste un'altro candidato nella rete con stage maggiore.
+ \item I territori associati a due o più nodi \textit{CANDIDATE} non possono sovrapporsi.
+ \item Se un candidato raggiunge lo stage $\lfloor\frac{n}{2}\rfloor+1$ non esiste un altro candidato nella rete con stage maggiore.
 \end{itemize}
 
 \end{frame}
@@ -14,10 +16,10 @@ Il criterio di terminazione è corretto infatti:
  Rimane da verificare che almeno un candidato raggiunga lo stage $\lfloor\frac{n}{2}\rfloor+1$. 
 
  Supponiamo per assurdo che nessun nodo raggiunga lo stage $\lfloor\frac{n}{2}\rfloor+1$.  Questo implica che tutti i candidati siano stati catturati (da altri candidati) o siano diventati passivi.
- Questo non è possibile perchè:
+ Questo non è possibile perché:
  \begin{itemize}
-  \item quando un candidato sfida un'altro candidato direttamente o indirettamente uno solo dei due 'muore'.
-  \item se un candidato sfida un nodo passivo e il nodo passivo 'vince' allora esiste un'altro candidato con stage maggiore o uguale al suo. 
+  \item quando un candidato sfida un altro candidato direttamente o indirettamente uno solo dei due 'muore'.
+  \item se un candidato sfida un nodo passivo e il nodo passivo 'vince' allora esiste un altro candidato con stage maggiore o uguale al suo. 
  \end{itemize}
 
  
